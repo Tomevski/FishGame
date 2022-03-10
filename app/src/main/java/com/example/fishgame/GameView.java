@@ -12,12 +12,21 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
+import static com.example.fishgame.utils.Constants.CIRCLE_RADIUS;
 import static com.example.fishgame.utils.Constants.COORDINATE_Y_POS;
 import static com.example.fishgame.utils.Constants.GB_RB_SPEED;
+import static com.example.fishgame.utils.Constants.GREEN_SCORE;
+import static com.example.fishgame.utils.Constants.HEART_POS;
 import static com.example.fishgame.utils.Constants.HIT_BALL_SPEED;
 import static com.example.fishgame.utils.Constants.LIFE_NUMBER;
+import static com.example.fishgame.utils.Constants.POS_CONSTANT;
+import static com.example.fishgame.utils.Constants.REDBALL_CIRCLE_RADIUS;
+import static com.example.fishgame.utils.Constants.SCORE_COOR_X;
+import static com.example.fishgame.utils.Constants.SCORE_COOR_Y;
+import static com.example.fishgame.utils.Constants.SPEED_DECREASER;
 import static com.example.fishgame.utils.Constants.TEXT_SIZE;
 import static com.example.fishgame.utils.Constants.YB_SPEED;
+import static com.example.fishgame.utils.Constants.YELLOW_SCORE;
 
 public class GameView extends View {
 
@@ -112,31 +121,31 @@ public class GameView extends View {
         yellowX = yellowX - yellowSpeed;
 
         if (hitBallChecker(yellowX, yellowY)) {
-            score = score + 10;
+            score = score + YELLOW_SCORE;
             yellowX = HIT_BALL_SPEED;
 
         }
 
         if (yellowX < 0) {
-            yellowX = canvasWidth + 21;
+            yellowX = canvasWidth + POS_CONSTANT;
             yellowY = (int) Math.floor(Math.random() * (maxY - minY)) + minY;
         }
-        canvas.drawCircle(yellowX, yellowY, 25, yellowPaint);
+        canvas.drawCircle(yellowX, yellowY, CIRCLE_RADIUS, yellowPaint);
 
         //Green ball fx
         greenX = greenX - greenSpeed;
 
         if (hitBallChecker(greenX, greenY)) {
-            score = score + 20;
+            score = score + GREEN_SCORE;
             greenX = HIT_BALL_SPEED;
 
         }
 
         if (greenX < 0) {
-            greenX = canvasWidth + 21;
+            greenX = canvasWidth + POS_CONSTANT;
             greenY = (int) Math.floor(Math.random() * (maxY - minY)) + minY;
         }
-        canvas.drawCircle(greenX, greenY, 25, greenPaint);
+        canvas.drawCircle(greenX, greenY, CIRCLE_RADIUS, greenPaint);
         //Red ball fx
 
         redX = redX - redSpeed;
@@ -157,22 +166,22 @@ public class GameView extends View {
         }
 
         if (redX < 0) {
-            redX = canvasWidth + 21;
+            redX = canvasWidth + POS_CONSTANT;
             redY = (int) Math.floor(Math.random() * (maxY - minY)) + minY;
         }
-        canvas.drawCircle(redX, redY, 40, redPaint);
+        canvas.drawCircle(redX, redY, REDBALL_CIRCLE_RADIUS, redPaint);
         //Score fx
-        canvas.drawText("My score : " + score, 20, 60, scorepaint);
+        canvas.drawText("My score : " + score, SCORE_COOR_X, SCORE_COOR_Y, scorepaint);
 
         //Red ball life decreasing fx
         for (int i = 0; i < 3; i++) {
-            int x = (int) (580 + life[0].getWidth() * 1.5 * i);
-            int y = 30;
+            int coordinate_x = (int) (HEART_POS + life[0].getWidth() * 1.5 * i);
+            int coordinate_y = 30;
 
             if (i < lifeCounter) {
-                canvas.drawBitmap(life[0], x, y, null);
+                canvas.drawBitmap(life[0], coordinate_x, coordinate_y, null);
             } else {
-                canvas.drawBitmap(life[1], x, y, null);
+                canvas.drawBitmap(life[1], coordinate_x, coordinate_y, null);
             }
         }
 
@@ -191,7 +200,7 @@ public class GameView extends View {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             touch = true;
 
-            Fspeed = -45;
+            Fspeed = SPEED_DECREASER;
         }
 
         return true;
