@@ -22,9 +22,9 @@ public class GameOverActivity extends AppCompatActivity {
 
         score = getIntent().getExtras().get("score").toString();
 
-        StartGameAgain = (Button) findViewById(R.id.play_again_btn);
+        StartGameAgain =  findViewById(R.id.play_again_btn);
 
-        DisplayScore = (TextView) findViewById(R.id.textview5);
+        DisplayScore =  findViewById(R.id.textview5);
 
         StartGameAgain.setOnClickListener(new View.OnClickListener(){
             @Override
